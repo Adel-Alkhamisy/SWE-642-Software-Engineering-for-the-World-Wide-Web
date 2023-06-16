@@ -10,6 +10,6 @@ Assignment-2:
 This task builds upon Assignment-1 by continuing to host a personal website, the Volgenau School's homepage, and a computer science department homepage, all of which include a survey form. The assignment primarily focuses on incorporating form validation through JavaScript, employing cookies, making AJAX calls, and utilizing jQuery.
 
 Assignment-3:
-In this assignment, I focused on developing the backend API for the survey form by employing the Spring Boot framework. I also designed its user interface using Angular and integrated it with AWS RDS for data storage purposes.
+In this assignment, We focused on developing the backend API for the survey form by employing the Spring Boot framework. We also designed its user interface using Angular and integrated it with AWS RDS for data storage purposes.
 
 For a comprehensive understanding and a detailed report of each assignment, please refer to the respective folders within the repository.
