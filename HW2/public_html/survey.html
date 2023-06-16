@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!-- <!-- comment -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>homepage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="./jquery-ui/jquery-ui.min.css">
+    
+   
+    
+    
+    <script type="text/javascript" src="jquery-3.6.1"></script>
+    <script type="text/javascript" src="jquery-ui/external/jquery/jquery.js"></script>
+    <script src="jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function(){ //wait for the document to load
+                $("#data").blur(computeAverageAndMax);
+                $("#data").focus(clearErrorMessage);
+                $("#send").click(validation);
+                $("#zip").blur(zipAuto);
+                
+        
+            });
+        </script>
+        
+        <script type="text/javascript">
+            
+            function zipAuto(){
+                var zip = $("#zip").val();
+                if (zip!=0 && zip!="") {
+                console.log(zip);
+                $.ajax({
+                    url:'zip_json.json',
+                    type:'get',
+                    beforeSend:resetFields,
+                    success:processResponse,
+                    data: zip,
+                    error: errorHandlerFunction,
+                    cache: false,
+                    dataType: "json"
+                });
+                }
+                else{
+                    $("#error").html("please enter a zipcode");
+                    }
+
+            }
+               function errorHandlerFunction(){
+                   $("#error").html("error occurred, please re-enter zipcode");
+               }
+               // reset error, city and state fields
+               function resetFields(){
+                   $("#error").html("");
+                    $("#city").html("");
+                    $("#state").html("");
+               }
+               // function to process response and auto generate city and state fields if exists
+                function processResponse(response){
+                    var zip = $("#zip").val();
+                    var flag =0;
+                    console.log(response);
+                    const parsedJSON = JSON.parse(JSON.stringify(response.zipcodes));
+                    for(var i=0;i<parsedJSON.length;i++){
+                        if (parsedJSON[i]['zip']==zip){
+                            $("#city").html(parsedJSON[i]['city']);
+                            $("#state").html(parsedJSON[i]['state']);
+                            flag =1;
+                            break;
+                        }
+                    }
+                    if (flag==0) {
+                        $("#error").html("an invalid zip");
+                        }
+                }
+            
+            
+        </script>
+        
+        <script type="text/javascript" >
+        // This function to validate the emial
+        function IsEmail(email) {
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if(!regex.test(email)) 
+                    {
+                       return false;
+                    }
+                else
+                    {
+                       return true;
+                    }
+          }
+          // this function to validate all the requirements in HW2 Part 2
+        function validation(){
+            
+            var name= $("#name_id").val();
+            var alphabets = /^[A-Za-z]+$/;
+            var alphanumeric = /^[0-9a-zA-Z\s]+$/;
+            var numeric = /^[0-9]+$/;
+            var street_address=$("#street_address").val();
+            var city=$("#city").val();
+            var state=$("#state").val();
+            var zip=$("#zip").val();
+            var number_of_checkboxes = $(".checkbox_classs:checked").length;
+            var number_of_radioButtons = $(".radio_button_class:checked").length;
+            // validate the name which accept alphabets only
+            if(name.match(alphabets))
+                {
+                    /* validate the address which accept appropriate numeric, alphabet or alphanumeric characters
+                    * I assumed:
+                    * Street Address is alphanumeric only
+                    * city is alphabet only
+                    * state is alphabet only
+                    * */
+                    if(street_address.match(alphanumeric))
+                        {
+//                        if(city.match(alphabets))
+//                            {
+//                                 if(state.match(alphabets))
+//                                    {
+                                        // Actually the zip code textbox will not accept any characters other than numbers 
+                                        // But I write this validation in case an unexpected error occurred 
+                                        if(zip.match(numeric))
+                                            {
+                                                if(number_of_checkboxes>=2)
+                                                    {
+                                                       if(number_of_radioButtons==1)
+                                                            {
+                                                               if(IsEmail($("#email").val()))
+                                                                    {
+
+                                                                    }
+                                                                else
+                                                                    {
+                                                                        $("#emailErrorMessage").dialog({ 
+                                                                            modal: true, 
+                                                                            close: function() {
+                                                                                   $("#email").val('');
+                                                                               }});
+                                                                        return false;
+                                                                    } 
+                                                            }
+                                                        else
+                                                            {
+                                                                $("#radioButtonErrorMessage").dialog({ 
+                                                                    modal: true,});
+                                                                return false;
+                                                            }
+                                                    }
+                                                else
+                                                    {
+                                                        $("#checkboxErrorMessage").dialog({ 
+                                                            modal: true,});
+                                                        return false;
+                                                    }
+                                            }
+                                        else
+                                            {
+                                                $("#zipErrorMessage").dialog({ 
+                                                    modal: true, 
+                                                    close: function() {
+                                                           $("#zip").val('');
+                                                       }});
+                                                return false;
+                                            }
+//                                    }
+//                                else
+//                                    {
+//                                        $("#stateErrorMessage").dialog({ 
+//                                            modal: true, 
+//                                            close: function() {
+//                                                   $("#state").val('');
+//                                               }});
+//                                        return false;
+//                                    }
+//                        }
+//                        else
+//                            {
+//                                $("#cityErrorMessage").dialog({ 
+//                                    modal: true, 
+//                                    close: function() {
+//                                           $("#city").val('');
+//                                       }});
+//                            return false;
+//                            } 
+                        }
+                    else
+                        {
+                            $("#streetAddressErrorMessage").dialog({ 
+                                modal: true, 
+                                close: function() {
+                                       $("#street_address").val('');
+                                   }});
+                        return false;
+                        } 
+                }
+            else
+                {
+                 $("#nameErrorMessage").dialog({ 
+                     modal: true, 
+                     close: function() {
+                            $("#name_id").val('');
+                        }});
+                return false;
+                } 
+          }
+         // This function compute the min and max
+        function computeAverageAndMax(){  
+                      var values = $("#data").val();
+                      values=values.split(",");
+                      var numbers= []
+                      length = values.length;
+                      var average=0;
+                      var max;
+                      if(length<10){
+                           $("#dataErrorMessage").removeClass("hidden_message").addClass("visible_message");
+                        }else{
+                            
+           
+                        for (var i = 0; i < length; i++)
+                               numbers.push(parseInt(values[i]));
+                   
+                     
+                        max=numbers[0];
+                        for (var i = 0; i < length; i++){
+                            if(numbers[i]>100 || numbers[i]<1){
+                                $("#dataErrorMessage").text("Please enter number between 1-100 only!");
+                                $("#dataErrorMessage").removeClass("hidden_message").addClass("visible_message");
+                                
+                                return;
+                            }
+                                 average=average + numbers[i];
+                                 if(numbers[i]>max){
+                                     max=numbers[i];
+                                 }
+                             }
+                        if(numbers.length>=10){
+                            average=average/length;
+                            averageString=String(average)
+                            if (averageString=="NaN"){
+                                $("#dataErrorMessage").text("Please enter numbers only!");
+                                $("#dataErrorMessage").removeClass("hidden_message").addClass("visible_message");
+                                }
+                            else{
+                                $("#output1").val(average);
+                                $("#output2").val(max);
+                            }
+                            
+                        }
+             
+
+                    }
+    }
+    // this function to clean error messages 
+    function clearErrorMessage(){
+        $("#dataErrorMessage").removeClass("visible_message").addClass("hidden_message");
+        $("#output1").val("");
+        $("#output2").val("");
+    }
+        </script>
+    <script type = "text/javascript">
+        <!--
+        var now = new Date();
+        var hour = now.getHours();
+        var name;
+        if ( hour < 12 )
+            document.write( "<h6>Good Morning, " );
+        else
+        {
+        hour = hour - 12;
+        if ( hour < 6 )
+            document.write( "<h6>Good Afternoon, " );
+        else
+            document.write( "<h6>Good Evening, " );
+        }
+        if ( document.cookie ){
+        var myCookie = unescape( document.cookie );
+        var cookieTokens = myCookie.split( "=" );
+        name = cookieTokens[ 1 ];
+        }
+        else{
+            name = window.prompt( "Please enter your name", "Adel" );
+            document.cookie = "name=" + escape( name );
+        }
+        document.writeln(name + ", welcome to SWE642!</h6>" );
+        document.writeln( "<a href = 'javascript:wrongPerson()'> " +"Click here if you are not " + name + "</a>" );
+        
+        function wrongPerson(){
+        document.cookie= "name=null;" +" expires=Thu, 01-Jan-2020 00:00:01 GMT";
+        
+        location.reload();
+        }
+        -->
+    </script>
+</head>
+<body class="w3-green">
+<header>
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <!-- Avatar image in top left corner -->
+  <img src="IMG_1.jpg" style="width:100%" alt="Adel Image">
+  <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a href="Computer_Science_Department.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i style='font-size:40px' class='fas'>&#127979;</i>
+    <p>Computer Science department</p>
+  </a>
+  <a href="survey.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>Survey</p>
+  </a>
+  <a href="volgenau.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+
+  <p>CEC</p>
+</nav>
+
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="Computer_Science_Department.html" class="w3-bar-item w3-button" style="width:25% !important">Computer Science Department</a>
+    <a href="survey.html" class="w3-bar-item w3-button" style="width:25% !important">survey</a>
+    <a href="volgenau.html" class="w3-bar-item w3-button" style="width:25% !important">CEC</a>
+  </div>
+</div>
+</header>
+
+<div class="w3-content w3-justify w3-text-black w3-padding-64 w3-row-padding" id="dev1">
+    
+    <div id="greetings"></div>
+    
+  <div class="w3-col">
+  <h1 class="head1">Survey</h1>
+ 
+  <form method="post" autocomplete="on" style="width: 100%" id="form1">
+        <p>
+           <td><label><span style="color:red">*</span>User Name: </label></td>
+           <td><input type="text" id="name_id" name="name" autofocus required/></td>
+           <label id="nameErrorMessage" title="Error: User name is incorrect" style="display:none">Please input alphabet characters only</label>
+        </p>
+
+        
+        <p>
+            <td><label><span style="color:red">*</span>Street address: </label></td>
+            <td><input type="text" id="street_address" name="address" required/></td>
+            <label id="streetAddressErrorMessage" title="Error: Street Address is incorrect" style="display:none"> Please input alphanumeric characters only</label>
+        </p>
+        <p>
+
+        <p>
+            <label><span style="color:red">*</span>Zip:
+              <input type="number" id="zip" name="zip" placeholder="00000" min="00000" max="99999" required/>
+              <span id="error" class="visible_message"></span>
+              <label id="zipErrorMessage" title="Error: zip is incorrect" style="display:none">Please input numbers only</label>
+            </label>
+        </p>
+        <p>
+        <label><span style="color:red">*</span>City: </label>
+        <span id="city"></span>
+        <label id="cityErrorMessage" title="Error: city is incorrect" style="display:none">Please input alphabet characters only</label>
+        </p>
+        <p>
+          <label><span style="color:red">*</span>State: </label>
+          <span id="state"></span>
+          <label id="stateErrorMessage" title="Error: state is incorrect" style="display:none">Please input alphabet characters only</label>
+        </p>
+    <p>
+      <label><span style="color:red">*</span>Telephone number:
+        <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" pattern="\(\d{3}\) \d{3}-\d{4}" required/>
+      </label>
+    </p>
+    <p>
+      <label><span style="color:red">*</span>e-mail:
+        <input type="email" id="email" placeholder="name@domain.com" required />
+        <label id="emailErrorMessage" title="Error: email is incorrect" style="display:none">email is incorrect</label>
+      </label>
+    </p>
+    <p>
+      <label>URL:
+        <input type="url" id="url" name="url" placeholder="https:www.domain.com"/>
+      </label>
+    </p>
+    <p>
+      <label><span style="color:red">*</span> Date of Survey:
+        <input type="date" id="date" required/>
+      </label>
+    </p>
+    <p>
+      <label>What do you like most about the campus? <br/>
+      <label id="checkboxErrorMessage" title="Error:" style="display:none">Please make sure at least two checkboxes are checked</label><br />
+        <input type="checkbox" class="checkbox_classs" id="students_checked" name="students_checked" value="Students" />
+        <label for="students_checked">Studens</label>
+      </label>
+    </p>
+
+    <p>
+      <input type="checkbox" class="checkbox_classs" id="location_checked" name="location_checked" value="Location" />
+      <label for="location_checked">Location</label>
+    </p>
+    <p>
+        <input type="checkbox" class="checkbox_classs" id="campus_checked" name="campus_checked" value="Campus" />
+        <label for="campus_checked">Campus</label>
+    </p>
+    <p>
+        <input type="checkbox" class="checkbox_classs" id="atmosphere_checked" name="atmosphere_checked" value="atmosphere" />
+        <label for="atmosphere_checked">atmosphere</label>
+    </p>
+    <p>
+        <input type="checkbox" class="checkbox_classs" id="dormrooms_checked" name="dormrooms_checked" value="dormrooms" />
+        <label for="dormrooms_checked">dorm rooms</label>
+    </p>
+    <p>
+        <input type="checkbox" class="checkbox_classs" id="sports_checked" name="sports_checked" value="Sports" />
+        <label for="sports_checked">Sports</label>
+    </p>
+
+    <p>
+      <label>How do you became interested in university? <br/>
+      <label id="radioButtonErrorMessage" title="Error:" style="display:none">Please make sure a radio button is selected</label><br />
+        <input type="radio" class="radio_button_class" id="friends_r" name="interested_in_university" value="Friends" />
+        <label for="friends_r">friends</label>
+      </label>
+    </p>
+
+    <p>
+        <input type="radio" class="radio_button_class" id="television_r" name="interested_in_university" value="Television" />
+        <label for="television_r">television</label>
+    </p>
+    <p>
+        <input type="radio" class="radio_button_class" id="internet_r" name="interested_in_university" value="Internet" />
+        <label for="internet_r">Internet</label>
+    </p>
+    <p>
+        <input type="radio" class="radio_button_class" id="other_r" name="interested_in_university" value="Other" />
+        <label for="other_r">Other</label>
+    </p>
+    <p><label for="additional_review">Additional comments</label></p>
+    <textarea id="additional_review" name="additional_review"></textarea><br/>
+
+    <label for="gdate"><span style="color:red">*</span>Please select high school graduation date:</label>
+    <input list="gdates" id="gdate" name="gdate" size="6px" required>
+      <datalist id="gdates">
+          <option value="Jan">
+          <option value="Feb">
+          <option value="Mar">
+          <option value="Apr">
+          <option value="May">
+          <option value="Jun">
+          <option value="Jul">
+          <option value="Aug">
+          <option value="Sep">
+          <option value="Oct">
+          <option value="Nov">
+          <option value="Dec">
+      </datalist>
+
+    <input type="number" id="year" name="year" value="" min="1900" max="2022" step="1" required/>
+    <label for="year"><span style="color:red">*</span>Year</label>
+    <br>
+
+     <label for="rec"><span style="color:red">*</span>What is the likelihood of you recommending this school to other?</label>
+    <select id="rec" required>
+      <option value="Very Likely">Very Likely</option>
+      <option value="Likely">Likely</option>
+      <option value="Unlikely">Unlikely</option>
+    </select>
+    <br />
+
+    <label>Data: <input type="text" id="data"/><label id="dataErrorMessage" class="hidden_message">Please enter at least ten comma separated values between 1 and 100</label></label>
+<br />
+    <label>Average: <input type="text" id="output1"/></label>
+<br />
+    <label>Maximum: <input type="text" id="output2"/></label>
+
+    <br>
+    <br>
+    <input type="submit" value="Submit" id="send">
+    <input type="reset" value="Clear">
+</form>
+<a href="https://www.gmu.edu" target="_blank"><img src="IMG_2.png" style="width:10%;position: fixed;bottom: 20px;right: 30px;"></a>
+
+</div>
+</div>
+
+
+
+</body>
+</html>

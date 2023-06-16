@@ -1,0 +1,52 @@
+body,h2,h3,h4,h5,h6 {
+    font-family: "Montserrat", sans-serif
+    }
+.w3-row-padding img {
+    margin-bottom: 12px
+    }
+
+.w3-sidebar {
+    width: 120px;background: #222;
+    }
+    
+.hidden_message {
+        visibility: hidden;
+    }
+.visible_message {
+        color: red;
+        visibility : visible;
+    }
+    
+.checkbox_class {
+        
+    }
+.radio_button_class {
+        
+    }
+    
+    
+
+
+#main {
+    margin-left: 120px
+    }
+
+@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+.head1 {
+    color: #006633;
+    border-width: 5px;
+    border-style: solid;
+    text-align: center;
+    box-shadow: 10px 10px
+    }
+h1 {
+    font-family: "Montserrat", sans-serif;
+    background-color: white;
+    color: #006633;
+    text-align: center
+    }
+table {
+    width: 70%;
+    background-color: #FFCC33
+    }
+
