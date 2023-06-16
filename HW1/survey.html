@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>homepage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body class="w3-green">
+<header>
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <!-- Avatar image in top left corner -->
+  <img src="IMG_1.jpg" style="width:100%" alt="Adel Image">
+  <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a href="Computer_Science_Department.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i style='font-size:40px' class='fas'>&#127979;</i>
+    <p>Computer Science department</p>
+  </a>
+  <a href="survey.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>Survey</p>
+  </a>
+</nav>
+
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="Computer_Science_Department.html" class="w3-bar-item w3-button" style="width:25% !important">Computer Science Department</a>
+    <a href="survey.html" class="w3-bar-item w3-button" style="width:25% !important">survey</a>
+  </div>
+</div>
+</header>
+
+<div class="w3-content w3-justify w3-text-black w3-padding-64 w3-row-padding" id="">
+  <div class="w3-col">
+  <h1 class="head1">Survey</h1>
+  <form method="post" autocomplete="on" style="width: 100%">
+
+        <p>
+           <td><label><span style="color:red">*</span>User Name: </label></td>
+           <td><input type="text" id="name" name="name" autofocus required/></td>
+        </p>
+        <p>
+            <td><label><span style="color:red">*</span>Street address: </label></td>
+            <td><input type="text" id="address" name="address" required/></td>
+        </p>
+        <p>
+        <label><span style="color:red">*</span>City: </label>
+        <input type="text" required />
+        </p>
+        <p>
+          <label><span style="color:red">*</span>State: </label>
+          <input type="text" id="state" name="state" required/>
+        </p>
+
+
+     <p>
+      <label><span style="color:red">*</span>Zip:
+        <input type="number" id="zip" name="zip" placeholder="00000" min="00000" max="99999" required/>
+      </label>
+    </p>
+    <p>
+      <label><span style="color:red">*</span>Telephone number:
+        <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" pattern="\(\d{3}\) \d{3}-\d{4}" required/>
+      </label>
+    </p>
+    <p>
+      <label><span style="color:red">*</span>e-mail:
+        <input type="email" placeholder="name@domain.com" required/>
+      </label>
+    </p>
+    <p>
+      <label>URL:
+        <input type="url" id="url" name="url" placeholder="https:www.domain.com"/>
+      </label>
+    </p>
+    <p>
+      <label><span style="color:red">*</span> Date of Survey:
+        <input type="date" required/>
+      </label>
+    </p>
+    <p>
+      <label>What do you like most about the campus? <br/>
+        <input type="checkbox" id="ch1" name="ch1" value="Students" />
+        <label for="ch1">Studens</label>
+      </label>
+    </p>
+
+    <p>
+      <input type="checkbox" id="ch2" name="ch2" value="Location" />
+      <label for="ch2">Location</label>
+    </p>
+    <p>
+        <input type="checkbox" id="ch3" name="ch3" value="Location" />
+        <label for="ch3">Campus</label>
+    </p>
+    <p>
+        <input type="checkbox" id="ch4" name="ch4" value="atmosphere" />
+        <label for="ch4">atmosphere</label>
+    </p>
+    <p>
+        <input type="checkbox" id="ch5" name="ch5" value="dorm rooms" />
+        <label for="ch5">dorm rooms</label>
+    </p>
+    <p>
+        <input type="checkbox" id="ch6" name="ch6" value="Sports" />
+        <label for="ch6">Sports</label>
+    </p>
+
+    <p>
+      <label>How do you became interested in university? <br/>
+        <input type="radio" id="r1" name="interested_in_university" value="friends" />
+        <label for="r1">friends</label>
+      </label>
+    </p>
+
+    <p>
+        <input type="radio" id="r2" name="interested_in_university" value="television" />
+        <label for="r2">television</label>
+    </p>
+    <p>
+        <input type="radio" id="r3" name="interested_in_university" value="Internet" />
+        <label for="r3">Internet</label>
+    </p>
+    <p>
+        <input type="radio" id="r4" name="interested_in_university" value="Other" />
+        <label for="r4">Other</label>
+    </p>
+    <p><label for="additional_review">Additional comments</label></p>
+    <textarea id="additional_review" name="additional_review"></textarea><br/>
+
+    <label for="gdate"><span style="color:red">*</span>Please select high school graduation date:</label>
+    <input list="gdates" name="gdate" id="gdate" size="6px" required>
+      <datalist id="gdates">
+          <option value="Jan">
+          <option value="Feb">
+          <option value="Mar">
+          <option value="Apr">
+          <option value="May">
+          <option value="Jun">
+          <option value="Jul">
+          <option value="Aug">
+          <option value="Sep">
+          <option value="Oct">
+          <option value="Nov">
+          <option value="Dec">
+      </datalist>
+
+    <input type="number" id="year" name="year" value="" min="1900" max="2022" step="1" required/>
+    <label for="year"><span style="color:red">*</span>Year</label>
+    <br>
+
+     <label for="rec"><span style="color:red">*</span>What is the likelihood of you recommending this school to other?</label>
+    <select id="rec" required>
+      <option value="Very Likely">Very Likely</option>
+      <option value="Likely">Likely</option>
+      <option value="Unlikely">Unlikely</option>
+    </select>
+
+    <br>
+    <br>
+    <input type="submit" value="Submit">
+    <input type="reset" value="Clear">
+</form>
+<a href="https://www.gmu.edu" target="_blank"><img src="IMG_2.png" style="width:10%;position: fixed;bottom: 20px;right: 30px;"></a>
+
+</div>
+</div>
+
+
+
+</body>
+</html>
