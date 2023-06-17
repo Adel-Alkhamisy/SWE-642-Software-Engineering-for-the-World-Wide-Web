@@ -4,12 +4,7 @@ This repository encompasses all the assignments and homework submissions that we
 Inside the repository, each assignment is neatly organized into folders that contain elaborate information regarding the respective tasks. Below is a concise summary of the content of each assignment.
 
 Assignment-1:
-This assignment involves the creation and hosting of a personal website, in addition to a computer science department's homepage that features a survey form.
+This assignment involves the creation and hosting of a personal website, a computer science department's homepage example, and a survey form example.
 
 Assignment-2:
-This task builds upon Assignment-1 by continuing to host a personal website, the Volgenau School's homepage, and a computer science department homepage, all of which include a survey form. The assignment primarily focuses on incorporating form validation through JavaScript, employing cookies, making AJAX calls, and utilizing jQuery.
-
-Assignment-3:
-In this assignment, We focused on developing the backend API for the survey form by employing the Spring Boot framework. We also designed its user interface using Angular and integrated it with AWS RDS for data storage purposes.
-
-For a comprehensive understanding and a detailed report of each assignment, please refer to the respective folders within the repository.
+This task builds upon Assignment-1 by continuing to host a personal website, the Volgenau School's homepage, a computer science department homepage, and a survey form example. The assignment primarily focuses on incorporating form validation through JavaScript, employing cookies, making AJAX calls, and utilizing jQuery.
